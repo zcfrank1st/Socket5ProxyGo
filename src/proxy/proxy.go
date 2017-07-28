@@ -42,6 +42,8 @@ func (socks5 *Socks5ProxyHandler) Handle(connect net.Conn) {
             host = string(b[5 : n-2]) //b[4] length of domain
         case 0x04: //IP V6
             host = net.IP{b[4], b[5], b[6], b[7], b[8], b[9], b[10], b[11], b[12], b[13], b[14], b[15], b[16], b[17], b[18], b[19]}.String()
+        default:
+            return
         }
         port := strconv.Itoa(int(b[n-2])<<8 | int(b[n-1]))
 
