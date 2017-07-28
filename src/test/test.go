@@ -1,9 +1,8 @@
 package main
 
 import (
-    "github.com/golang/glog"
     "flag"
-    "fmt"
+    "log"
 )
 
 func init() {
@@ -11,6 +10,5 @@ func init() {
 }
 
 func main()  {
-    glog.Info("this is a demo, hello world")
-    fmt.Println("hello world")
+    log.Println("hello world")
 }
