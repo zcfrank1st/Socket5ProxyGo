@@ -32,6 +32,7 @@ func (socks5 *Socks5ProxyHandler) Handle(connect net.Conn) {
 
     if b[0] == 0x05 {
         connect.Write(no_auth)
+        // TODO 增加auth验证
         n, err = connect.Read(b)
 
         var host string
