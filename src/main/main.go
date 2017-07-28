@@ -4,8 +4,8 @@ import (
     "net"
     "../proxy"
     "flag"
-    "fmt"
     "github.com/logrusorgru/aurora"
+    "log"
 )
 
 var port string
@@ -20,7 +20,7 @@ func main()  {
     if err != nil {
         return
     }
-    fmt.Printf("socks5 proxy server running on port [:%s], listening ...\n", aurora.Green(port))
+    log.Printf("socks5 proxy server running on port [:%s], listening ...\n", aurora.Green(port))
 
     for {
         client, err := socket.Accept()
@@ -34,7 +34,7 @@ func main()  {
 
         go handler.Handle(client)
 
-        fmt.Println(aurora.Blue(client), " request handling...")
+        log.Println(aurora.Blue(client), " request handling...")
     }
 
 }
