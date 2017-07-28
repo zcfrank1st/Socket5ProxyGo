@@ -1,4 +1,4 @@
-package flag
+package conf
 
 import "flag"
 
@@ -7,6 +7,7 @@ var (
     Pass string
     Port string
 )
+
 
 func init () {
     flag.StringVar(&Port, "port", "9779", "socks5 proxy port")
