@@ -4,10 +4,16 @@ import (
     "net"
     "strconv"
     "io"
+    . "../conf"
 )
 
 var(
     no_auth = []byte{0x05, 0x00}
+    with_auth = []byte{0x05, 0x02}
+
+    auth_success = []byte{0x05, 0x00}
+    auth_failed = []byte{0x05, 0x01}
+
     connect_success = []byte{0x05, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
 )
 
@@ -31,10 +37,31 @@ func (socks5 *Socks5ProxyHandler) Handle(connect net.Conn) {
     }
 
     if b[0] == 0x05 {
-        connect.Write(no_auth)
-        // TODO 增加auth验证
-        n, err = connect.Read(b)
 
+        if Auth == false {
+            connect.Write(no_auth)
+        } else {
+            connect.Write(with_auth)
+
+
+            n ,err = connect.Read(b)
+            if err != nil {
+                return
+            }
+
+            user_length := int(b[1])
+            user := string(b[2:(2 + user_length)])
+            pass := string(b[(2 + user_length):])
+
+            if User == user && Pass == pass {
+                connect.Write(auth_success)
+            } else {
+                connect.Write(auth_failed)
+                return
+            }
+        }
+
+        n, err = connect.Read(b)
         var host string
         switch b[3] {
         case 0x01: //IP V4

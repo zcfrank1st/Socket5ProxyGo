@@ -3,6 +3,7 @@ package conf
 import "flag"
 
 var (
+    Auth bool
     User string
     Pass string
     Port string
@@ -10,8 +11,9 @@ var (
 
 
 func init () {
+    flag.BoolVar(&Auth, "auth", false, "if use auth")
     flag.StringVar(&Port, "port", "9779", "socks5 proxy port")
-    flag.StringVar(&User, "user", "nil", "auth user")
-    flag.StringVar(&Pass, "pass", "nilnil", "auth pass")
+    flag.StringVar(&User, "user", "hello", "auth user")
+    flag.StringVar(&Pass, "pass", "world", "auth pass")
     flag.Parse()
 }

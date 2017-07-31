@@ -3,18 +3,18 @@ package main
 import (
     "net"
     "../proxy"
-    "../conf"
+    . "../conf"
     "github.com/logrusorgru/aurora"
     "log"
 )
 
 func main()  {
 
-    socket, err := net.Listen("tcp", ":" + conf.Port)
+    socket, err := net.Listen("tcp", ":" + Port)
     if err != nil {
         return
     }
-    log.Printf("socks5 proxy server running on port [:%s], listening ...\n", aurora.Green(conf.Port))
+    log.Printf("socks5 proxy server running on port [:%s], listening ...\n", aurora.Green(Port))
 
     for {
         client, err := socket.Accept()
