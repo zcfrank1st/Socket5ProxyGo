@@ -77,7 +77,7 @@ func (socks5 *Socks5ProxyHandler) Handle(connect net.Conn) {
 
         server, err := net.Dial("tcp", net.JoinHostPort(host, port))
         if server != nil {
-            server.Close()
+            defer server.Close()
         }
         if err != nil {
             return
