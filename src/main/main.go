@@ -24,7 +24,7 @@ func main()  {
         }
 
 
-        var handler proxy.ProxyHandler = new(proxy.Socks5ProxyHandler)
+        var handler proxy.Handler = new(proxy.Socks5ProxyHandler)
 
         go handler.Handle(client)
 
