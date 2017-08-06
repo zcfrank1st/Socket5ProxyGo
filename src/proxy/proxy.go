@@ -19,7 +19,7 @@ var(
 
 type Socks5ProxyHandler struct {}
 
-type ProxyHandler interface {
+type Handler interface {
     Handle(connect net.Conn)
 }
 
@@ -76,7 +76,9 @@ func (socks5 *Socks5ProxyHandler) Handle(connect net.Conn) {
         port := strconv.Itoa(int(b[n-2])<<8 | int(b[n-1]))
 
         server, err := net.Dial("tcp", net.JoinHostPort(host, port))
-        defer server.Close()
+        if server != nil {
+            server.Close()
+        }
         if err != nil {
             return
         }
